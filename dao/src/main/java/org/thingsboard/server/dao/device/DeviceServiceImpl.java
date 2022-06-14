@@ -224,7 +224,7 @@ public class DeviceServiceImpl extends AbstractCachedEntityService<DeviceCacheKe
                 device.setDeviceProfileId(new DeviceProfileId(deviceProfile.getId().getId()));
             } else {
                 deviceProfile = this.deviceProfileService.findDeviceProfileById(device.getTenantId(), device.getDeviceProfileId());
-                if (deviceProfile == null) {
+                if (deviceProfile == null || !device.getTenantId().equals(deviceProfile.getTenantId())) {
                     throw new DataValidationException("Device is referencing non existing device profile!");
                 }
             }
